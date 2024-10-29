@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/icon_univ_bsi.png') }}">
-    <title>tokoonline</title>
+    <title>Toko Online</title>
     <!-- Custom CSS -->
     <link href="{{ asset('backend/dist/css/style.min.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -48,7 +48,8 @@
                     <!-- error -->
                     @if(session()->has('error'))
                     <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" arialabel="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                         <strong>{{ session('error')}} </strong>
                     </div>
                     @endif
@@ -61,25 +62,13 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
-                                    <input type="text" name="email" value="{{old('email')}}" class="form-control form-control-lg @error('email') is-invalid
-                                    @enderror" placeholder="Masukkan Email" aria-label="Username" aria-describedby="basic-addon1">
-                                    @error('email')
-                                    <span class="invalid-feedback alert-danger" role="alert">
-                                    {{$message}}
-                                    </span>
-                                    @enderror
+                                    <input type="text" name="email" value="{{old('email')}}"class="form-control form-control-lg" placeholder="Masukkan Email" aria-label="Username" aria-describedby="basic-addon1" required="">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="password" name="password" class="formcontrol form-control-lg @error('password') is-invalid 
-                                    @enderror" placeholder="Masukkan Password" aria-label="Password" aria-describedby="basic-addon1">
-                                    @error('password')
-                                    <span class="invalid-feedback alert-danger role="alert">
-                                    {{$message}}
-                                    </span>
-                                    @enderror
+                                    <input type="password" name="password" value="{{old('password')}}" class="form-control form-control-lg" placeholder="Masukkan Password" aria-label="Password" aria-describedby="basic-addon1" required="">
                                 </div>
                             </div>
                         </div>
