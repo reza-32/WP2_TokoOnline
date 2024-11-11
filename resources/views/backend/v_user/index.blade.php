@@ -51,10 +51,10 @@
                                     <a href="{{ route('backend.user.edit', $row->id) }}" title="Ubah Data">
                                         <button type="button" class="btn btn-cyan btn-sm"><i class="far fa-edit"></i>Ubah</button>
                                     </a>
-                                    <form action="{{ route('backend.user.destroy', $row->id) }}" method="POST" style="display: inline-block;">
+                                    <form method="POST" action="{{ route('backend.user.destroy', $row->id) }}" style="display: inline-block;">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-sm" show_confirm" data-konf-delete="{{ $row->nama }}" title='Hapus Data'><i class="fas fa-trash"></i>Hapus</button>
+                                        <button type="submit" class="btn btn-danger btn-sm show_confirm" data-konf-delete="{{ $row->nama }}" title='Hapus Data'><i class="fas fa-trash"></i>Hapus</button>
                                     </form>
                                 </td>
                             </tr>
