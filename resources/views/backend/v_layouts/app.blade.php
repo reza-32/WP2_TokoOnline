@@ -166,7 +166,7 @@
                                 <li class="sidebar-item"><a href="{{ route('backend.kategori.index') }}" class="sidebar-link">
                                     <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Kategori</span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="icon-fontawesome.html" class="sidebar-link">
+                                <li class="sidebar-item"><a href="{{ route('backend.produk.index') }}" class="sidebar-link">
                                     <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Produk</span></a>
                                 </li>
                             </ul>
