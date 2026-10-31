@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <form action="{{ route('backend.produk.update', $edit->id) }}"
-                method="post" enctype="multipart/form-data">
+                    method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
 

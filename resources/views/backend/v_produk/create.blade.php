@@ -16,15 +16,15 @@
                                 <div class="form-group">
                                     <label>Foto</label>
                                     <img class="foto-preview">
-                                    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror" 
-                                    onchange="previewFoto()">
+                                    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
+                                        onchange="previewFoto()">
                                     @error('foto')
                                     <div class="invalid-feedback alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
+                            <div class="col-md-8">
+                                <div class="form-group">
                                     <label>Kategori</label>
                                     <select class="form-control @error('kategori') isinvalid @enderror" name="kategori_id">
                                         <option value="" selected>--Pilih Kategori--</option>
@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label>Nama Produk</label>
                                     <input type="text" name="nama_produk" value="{{ old('nama_produk') }}" class="form-control @error('nama_produk') is-invalid @enderror"
-                                    placeholder="Masukkan Nama Produk">
+                                        placeholder="Masukkan Nama Produk">
                                     @error('nama_produk')
                                     <span class="invalid-feedback alert-danger" role="alert">
                                         {{ $message }}
@@ -91,7 +91,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                     </div>
                     <div class="border-top">
@@ -107,6 +107,6 @@
         </div>
     </div>
 </div>
-    
+
 <!-- contentAkhir -->
 @endsection

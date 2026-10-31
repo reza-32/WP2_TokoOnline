@@ -49,7 +49,7 @@
                     @if(session()->has('error'))
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                                aria-hidden="true">&times;</span></button>
                         <strong>{{ session('error')}} </strong>
                     </div>
                     @endif
@@ -62,7 +62,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
-                                    <input type="text" name="email" value="{{old('email')}}"class="form-control form-control-lg" placeholder="Masukkan Email" aria-label="Username" aria-describedby="basic-addon1" required="">
+                                    <input type="text" name="email" value="{{old('email')}}" class="form-control form-control-lg" placeholder="Masukkan Email" aria-label="Username" aria-describedby="basic-addon1" required="">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -137,21 +137,20 @@
     <!-- This page plugin js -->
     <!-- ============================================================== -->
     <script>
+        $('[data-toggle="tooltip"]').tooltip();
+        $(".preloader").fadeOut();
+        // ============================================================== 
+        // Login and Recover Password 
+        // ============================================================== 
+        $('#to-recover').on("click", function() {
+            $("#loginform").slideUp();
+            $("#recoverform").fadeIn();
+        });
+        $('#to-login').click(function() {
 
-    $('[data-toggle="tooltip"]').tooltip();
-    $(".preloader").fadeOut();
-    // ============================================================== 
-    // Login and Recover Password 
-    // ============================================================== 
-    $('#to-recover').on("click", function() {
-        $("#loginform").slideUp();
-        $("#recoverform").fadeIn();
-    });
-    $('#to-login').click(function(){
-        
-        $("#recoverform").hide();
-        $("#loginform").fadeIn();
-    });
+            $("#recoverform").hide();
+            $("#loginform").fadeIn();
+        });
     </script>
 
 </body>

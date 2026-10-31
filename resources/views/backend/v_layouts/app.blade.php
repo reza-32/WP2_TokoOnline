@@ -54,21 +54,21 @@
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
                             <img src="{{ asset('image/icon_univ_bsi.png') }}" alt="homepage" class="light-logo" />
-                           
+
                         </b>
                         <!--End Logo icon -->
-                         <!-- Logo text -->
+                        <!-- Logo text -->
                         <span class="logo-text">
-                             <!-- dark Logo text -->
-                             <img src="{{ asset('image/logo_text.png') }}" alt="homepage" class="light-logo" />
-                            
+                            <!-- dark Logo text -->
+                            <img src="{{ asset('image/logo_text.png') }}" alt="homepage" class="light-logo" />
+
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-                            
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Dark Logo icon -->
+                        <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
                         <!-- </b> -->
                         <!--End Logo icon -->
                     </a>
@@ -92,11 +92,11 @@
                         <!-- ============================================================== -->
                         <!-- create new -->
                         <!-- ============================================================== -->
-                        
+
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        
+
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -105,14 +105,14 @@
                         <!-- ============================================================== -->
                         <!-- Comment -->
                         <!-- ============================================================== -->
-                        
+
                         <!-- ============================================================== -->
                         <!-- End Comment -->
                         <!-- ============================================================== -->
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
-                        
+
                         <!-- ============================================================== -->
                         <!-- End Messages -->
                         <!-- ============================================================== -->
@@ -123,17 +123,19 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if (Auth::user()->foto)
-                                <img src="{{ asset('storage/img-user/' . Auth::user()->foto) }}" 
-                                alt="user" class="rounded-circle" width="31">
+                                <img src="{{ asset('storage/img-user/' . Auth::user()->foto) }}"
+                                    alt="user" class="rounded-circle" width="31">
                                 @else
                                 <img src="{{ asset('storage/img-user/img-default.jpg') }}"
-                                alt="user" class="rounded-circle" width="31">
+                                    alt="user" class="rounded-circle" width="31">
                                 @endif
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="{{ route('backend.user.edit', Auth::user()->id) }}"><i class="ti-user m-r-5 m-l-5"></i> Profil Saya</a>
-                                <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><i class="fa fa-power-off m-r-5 m-l-5"></i> Keluar</a>
-                                <div class="dropdown-divider"></div>
-                            </div>
+                                <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                    @if (Route::has('backend.user.edit'))
+                                    <a class="dropdown-item" href="{{ route('backend.user.edit', Auth::user()->id) }}"><i class="ti-user m-r-5 m-l-5"></i> Profil Saya</a>
+                                    @endif
+                                    <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><i class="fa fa-power-off m-r-5 m-l-5"></i> Keluar</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -155,31 +157,41 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('backend.beranda') }}" aria-expanded="false">
-                            <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Beranda</span></a>
+                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Beranda</span></a>
                         </li>
+                        @if (Route::has('backend.user.index'))
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('backend.user.index') }}" aria-expanded="false">
-                            <i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
+                                <i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
                         </li>
+                        @endif
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waveseffect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="mdi mdi-shopping"></i><span class="hide-menu">Data Produk </span></a>
+                                <i class="mdi mdi-shopping"></i><span class="hide-menu">Data Produk </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
+                                @if (Route::has('backend.kategori.index'))
                                 <li class="sidebar-item"><a href="{{ route('backend.kategori.index') }}" class="sidebar-link">
-                                    <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Kategori</span></a>
+                                        <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Kategori</span></a>
                                 </li>
+                                @endif
+                                @if (Route::has('backend.produk.index'))
                                 <li class="sidebar-item"><a href="{{ route('backend.produk.index') }}" class="sidebar-link">
-                                    <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Produk</span></a>
+                                        <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Produk</span></a>
                                 </li>
+                                @endif
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="mdi mdi-receipt"></i><span class="hide-menu">Laporan </span></a>
+                                <i class="mdi mdi-receipt"></i><span class="hide-menu">Laporan </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
+                                @if (Route::has('backend.laporan.formuser'))
                                 <li class="sidebar-item"><a href="{{ route('backend.laporan.formuser') }}" class="sidebar-link">
-                                    <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> User </span></a>
+                                        <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> User </span></a>
                                 </li>
+                                @endif
+                                @if (Route::has('backend.laporan.formproduk'))
                                 <li class="sidebar-item"><a href="{{ route('backend.laporan.formproduk') }}" class="sidebar-link">
-                                    <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Produk </span></a>
+                                        <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Produk </span></a>
                                 </li>
+                                @endif
                             </ul>
                         </li>
                     </ul>
@@ -208,11 +220,11 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                
+
                 <!-- @yieldAwal -->
                 @yield('content')
                 <!-- @yieldAkhir-->
-                
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -272,7 +284,7 @@
     </script>
     <!-- form keluar app -->
     <form id="keluar-app" action="{{ route('backend.logout') }}" method="POST" class="dnone">
-    @csrf
+        @csrf
     </form>
     <!-- form keluar app end -->
 

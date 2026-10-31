@@ -1,48 +1,81 @@
-@extends('backend.v_layouts.app')
-@section('content')
-<!-- template -->
-
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <form class="form-horizontal" action="{{ route('backend.laporan.cetakuser') }}"
-                method="post" target="_blank">
-                @csrf
+            <div class="card-body">
+                <h5 class="card-title">{{ $judul }}</h5>
 
-                <div class="card-body">
-                    <h4 class="card-title"> {{$judul}} </h4>
+                <form
+                    action="{{ $user->exists ? route('backend.user.update', $user->id) : route('backend.user.store') }}"
+                    method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @if ($user->exists)
+                        @method('PUT')
+                    @endif
 
                     <div class="form-group">
-                        <label>Tanggal Awal</label>
-                        <input type="date" name="tanggal_awal" onkeypress="return
-                        hanyaAngka(event)" value="{{ old('tanggal_awal') }}" class="form-control
-                        @error('tanggal_awal') is-invalid @enderror" placeholder="Masukkan Jumlah Pinjam">
-                        @error('tanggal_awal')
-                        <span class="invalid-feedback alert-danger" role="alert">
-                            {{ $message }}
-                        </span>
-                        @enderror
+                        <label for="nama">Nama</label>
+                        <input id="nama" name="nama" type="text" class="form-control" value="{{ old('nama', $user->nama) }}" required>
+                        @error('nama') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Tanggal Akhir</label>
-                        <input type="date" name="tanggal_akhir" onkeypress="return
-                        hanyaAngka(event)" value="{{ old('tanggal_akhir') }}" class="form-control
-                        @error('tanggal_akhir') is-invalid @enderror" placeholder="Masukkan Jumlah Pinjam">
-                        @error('tanggal_akhir')
-                        <span class="invalid-feedback alert-danger" role="alert">
-                            {{ $message }}
-                        </span>
-                        @enderror
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+                        @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
-                    <br>
-                    <button type="submit" class="btn btn-primary">Cetak</button>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select id="role" name="role" class="form-control" required>
+                            <option value="0" @selected(old('role', $user->role ?? 0) == 0)>Admin</option>
+                            <option value="1" @selected(old('role', $user->role) == 1)>Super Admin</option>
+                            <option value="2" @selected(old('role', $user->role) == 2)>Customer</option>
+                        </select>
+                        @error('role') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
 
-            </form>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" class="form-control" required>
+                            <option value="1" @selected(old('status', $user->status ?? 1) == 1)>Aktif</option>
+                            <option value="0" @selected(old('status', $user->status) == 0)>Nonaktif</option>
+                        </select>
+                        @error('status') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hp">Nomor HP</label>
+                        <input id="hp" name="hp" type="text" class="form-control" maxlength="13" value="{{ old('hp', $user->hp) }}">
+                        @error('hp') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password {{ $user->exists ? '(kosongkan jika tidak diubah)' : '' }}</label>
+                        <input id="password" name="password" type="password" class="form-control" @required(!$user->exists)>
+                        @error('password') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password_confirmation">Konfirmasi Password</label>
+                        <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" @required(!$user->exists)>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        @if ($user->foto)
+                            <div class="mb-2">
+                                <img src="{{ asset('storage/img-user/'.$user->foto) }}" alt="Foto {{ $user->nama }}" width="80">
+                            </div>
+                        @endif
+                        <input id="foto" name="foto" type="file" class="form-control-file" accept="image/*">
+                        @error('foto') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ route('backend.user.index') }}" class="btn btn-secondary">Kembali</a>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
-<!-- end template-->
-@endsection

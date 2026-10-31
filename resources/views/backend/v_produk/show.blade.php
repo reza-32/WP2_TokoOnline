@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label>Foto Utama</label> <br>
                                 <img src="{{ asset('storage/img-produk/' . $show->foto) }}"
-                                class="foto-preview" width="100%">
+                                    class="foto-preview" width="100%">
                             </div>
                         </div>
 
@@ -74,7 +74,7 @@
                                             <button type="submit" class="btn btn-danger">Hapus</button>
                                         </form>
                                     </div>
-                                    
+
                                     @endforeach
                                 </div>
                                 <br>

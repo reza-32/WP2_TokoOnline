@@ -19,7 +19,7 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        
+
                         <tbody>
                             @foreach ($index as $row)
                             <tr>
@@ -33,11 +33,11 @@
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-danger btn-sm show_confirm" data-konf-delete="{{ $row->nama_kategori }}" title='Hapus Data'>
-                                        <i class="fas fa-trash"></i> Hapus</button>
+                                            <i class="fas fa-trash"></i> Hapus</button>
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

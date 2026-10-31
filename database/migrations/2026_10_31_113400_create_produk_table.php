@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('foto'); // Thumbnail image
             $table->timestamps();
             $table->foreign('kategori_id')->references('id')->on('kategori');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -51,27 +51,29 @@ class ProdukController extends Controller
             'foto.image' => 'Format gambar gunakan file dengan ekstensi jpeg, jpg, png, atau gif.',
             'foto.max' => 'Ukuran file gambar Maksimal adalah 1024 KB.'
         ]);
-        $validatedData['user_id'] = auth()->id();
+        $user = $request->user();
+        abort_if($user === null, 401);
+        $validatedData['user_id'] = $user->getAuthIdentifier();
         $validatedData['status'] = 0;
-            
+
         if ($request->file('foto')) {
             $file = $request->file('foto');
             $extension = $file->getClientOriginalExtension();
             $originalFileName = date('YmdHis') . '_' . uniqid() . '.' . $extension;
             $directory = 'storage/img-produk/';
-            
+
             // Simpan gambar asli
             $fileName = ImageHelper::uploadAndResize($file, $directory, $originalFileName);
             $validatedData['foto'] = $fileName;
-            
+
             // create thumbnail 1 (lg)
             $thumbnailLg = 'thumb_lg_' . $originalFileName;
             ImageHelper::uploadAndResize($file, $directory, $thumbnailLg, 800, null);
-            
+
             // create thumbnail 2 (md)
             $thumbnailMd = 'thumb_md_' . $originalFileName;
             ImageHelper::uploadAndResize($file, $directory, $thumbnailMd, 500, 519);
-            
+
             // create thumbnail 3 (sm)
             $thumbnailSm = 'thumb_sm_' . $originalFileName;
             ImageHelper::uploadAndResize($file, $directory, $thumbnailSm, 100, 110);
@@ -133,7 +135,6 @@ class ProdukController extends Controller
             'foto.image' => 'Format gambar gunakan file dengan ekstensi jpeg, jpg, png, atau gif.',
             'foto.max' => 'Ukuran file gambar Maksimal adalah 1024 KB.'
         ];
-        $validatedData['user_id'] = auth()->id();
         $validatedData = $request->validate($rules, $messages);
 
         if ($request->file('foto')) {
@@ -144,17 +145,17 @@ class ProdukController extends Controller
                     unlink($oldImagePath);
                 }
                 $oldThumbnailLg = public_path('storage/img-produk/') . 'thumb_lg_' .
-                $produk->foto;
+                    $produk->foto;
                 if (file_exists($oldThumbnailLg)) {
                     unlink($oldThumbnailLg);
                 }
                 $oldThumbnailMd = public_path('storage/img-produk/') . 'thumb_md_' .
-                $produk->foto;
+                    $produk->foto;
                 if (file_exists($oldThumbnailMd)) {
                     unlink($oldThumbnailMd);
                 }
                 $oldThumbnailSm = public_path('storage/img-produk/') . 'thumb_sm_' .
-                $produk->foto;
+                    $produk->foto;
                 if (file_exists($oldThumbnailSm)) {
                     unlink($oldThumbnailSm);
                 }
@@ -175,11 +176,11 @@ class ProdukController extends Controller
             // create thumbnail 2 (md)
             $thumbnailMd = 'thumb_md_' . $originalFileName;
             ImageHelper::uploadAndResize($file, $directory, $thumbnailMd, 500, 519);
-            
+
             // create thumbnail 3 (sm)
             $thumbnailSm = 'thumb_sm_' . $originalFileName;
             ImageHelper::uploadAndResize($file, $directory, $thumbnailSm, 100, 110);
-            
+
             // Simpan nama file asli di database
             $validatedData['foto'] = $originalFileName;
         }
@@ -264,11 +265,11 @@ class ProdukController extends Controller
     }
 
     // Method untuk menghapus foto
-    public function destroyFoto($id)
+    public function destroyFoto(string $id)
     {
         $foto = FotoProduk::findOrFail($id);
         $produkId = $foto->produk_id;
-            
+
         // Hapus file gambar dari storage
         $imagePath = public_path('storage/img-produk/') . $foto->foto;
         if (file_exists($imagePath)) {
@@ -276,7 +277,7 @@ class ProdukController extends Controller
         }
         // Hapus record dari database
         $foto->delete();
-        
+
         return redirect()->route('backend.produk.show', $produkId)
             ->with('success', 'Foto berhasil dihapus.');
     }
@@ -302,16 +303,16 @@ class ProdukController extends Controller
 
         $tanggalAwal = $request->input('tanggal_awal');
         $tanggalAkhir = $request->input('tanggal_akhir');
-        
+
         $query = Produk::whereBetween('updated_at', [$tanggalAwal, $tanggalAkhir])
             ->orderBy('id', 'desc');
-        
-            $produk = $query->get();
-            return view('backend.v_produk.cetak', [
-                'judul' => 'Laporan Produk',
-                'tanggalAwal' => $tanggalAwal,
-                'tanggalAkhir' => $tanggalAkhir,
-                'cetak' => $produk
+
+        $produk = $query->get();
+        return view('backend.v_produk.cetak', [
+            'judul' => 'Laporan Produk',
+            'tanggalAwal' => $tanggalAwal,
+            'tanggalAkhir' => $tanggalAkhir,
+            'cetak' => $produk
         ]);
     }
 }

@@ -31,7 +31,7 @@ class LoginController extends Controller
         }
         return back()->with('error', 'Login Gagal');
     }
-    
+
     public function logoutBackend()
     {
         Auth::logout();

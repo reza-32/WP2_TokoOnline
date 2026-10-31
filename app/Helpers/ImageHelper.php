@@ -1,26 +1,32 @@
 <?php
+
 namespace App\Helpers;
+
 class ImageHelper
 {
-    public static function uploadAndResize($file, $directory, $fileName, $width = null,
-    $height = null)
-    {
+    public static function uploadAndResize(
+        $file,
+        $directory,
+        $fileName,
+        $width = null,
+        $height = null
+    ) {
         $destinationPath = public_path($directory);
         $extension = strtolower($file->getClientOriginalExtension());
         $image = null;
-        
+
         // Tentukan metode pembuatan gambar berdasarkan ekstensi file
         switch ($extension) {
             case 'jpeg':
             case 'jpg':
                 $image = imagecreatefromjpeg($file->getRealPath());
-            break;
+                break;
             case 'png':
                 $image = imagecreatefrompng($file->getRealPath());
-            break;
+                break;
             case 'gif':
                 $image = imagecreatefromgif($file->getRealPath());
-            break;
+                break;
             default:
                 throw new \Exception('Unsupported image type');
         }
@@ -34,7 +40,7 @@ class ImageHelper
                 $height = $width / $aspectRatio; // Hitung tinggi dengan mempertahankan aspek rasio
             }
             $newImage = imagecreatetruecolor($width, $height);
-            imagecopyresampled($newImage, $image, 0, 0, 0, 0, $width, $height, $oldWidth,$oldHeight);
+            imagecopyresampled($newImage, $image, 0, 0, 0, 0, $width, $height, $oldWidth, $oldHeight);
             imagedestroy($image);
             $image = $newImage;
         }
@@ -44,15 +50,15 @@ class ImageHelper
             case 'jpeg':
             case 'jpg':
                 imagejpeg($image, $destinationPath . '/' . $fileName);
-            break;
+                break;
             case 'png':
                 imagepng($image, $destinationPath . '/' . $fileName);
-            break;
+                break;
             case 'gif':
                 imagegif($image, $destinationPath . '/' . $fileName);
-            break;
+                break;
         }
-        
+
         imagedestroy($image);
         return $fileName;
     }

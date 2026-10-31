@@ -44,7 +44,7 @@
         @foreach ($cetak as $row)
         <tr>
             <td> {{ $loop->iteration }} </td>
-            <td> {{ $row->kategori->nama_kategori }} </td>
+            <td> {{ $row->kategori?->nama_kategori ?? '-' }} </td>
             <td>
                 @if ($row->status == 1)
                 Publis

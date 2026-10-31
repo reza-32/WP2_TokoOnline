@@ -10,7 +10,7 @@ class Produk extends Model
     public $timestamps = true;
     protected $table = "produk";
     protected $guarded = ['id'];
-    
+
     public function kategori()
     {
         return $this->belongsTo(Kategori::class);
@@ -25,6 +25,6 @@ class Produk extends Model
     {
         return $this->hasMany(FotoProduk::class);
     }
-    
+
     use HasFactory;
 }
